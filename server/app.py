@@ -21,6 +21,10 @@ class Config:
 
 client = OpenAI(api_key=Config.OPENAI_API_KEY)
 
+# Validate API key on startup
+if not Config.OPENAI_API_KEY:
+    print("⚠️  WARNING: OPENAI_API_KEY not set!")
+
 
 
 
@@ -50,6 +54,10 @@ def serve_audio(filename):
 @app.route("/api/ping", methods=["GET"])
 def ping():
   return jsonify({"message": "pong"}), 200
+
+@app.route("/health", methods=["GET"])
+def health_check():
+  return jsonify({"status": "healthy", "service": "lyrically-backend"}), 200
 
 
 
@@ -126,9 +134,13 @@ def transcribe_from_url():
 
 
 
-#    finally:
-#        if os.path.exists(mp3_path):
-#            os.remove(mp3_path)
+  finally:
+      # Clean up the downloaded file after processing
+      if os.path.exists(mp3_path):
+          try:
+              os.remove(mp3_path)
+          except Exception as e:
+              print(f"Warning: Could not remove {mp3_path}: {e}")
 
 
 
@@ -145,6 +157,14 @@ def transcribe_uploaded_file():
   file = request.files["file"]
   if file.filename == "":
       return jsonify({"error": "Empty filename"}), 400
+
+  # Check file size (limit to 50MB)
+  file.seek(0, 2)  # Seek to end
+  file_size = file.tell()
+  file.seek(0)  # Reset to beginning
+  
+  if file_size > 50 * 1024 * 1024:  # 50MB limit
+      return jsonify({"error": "File too large. Maximum size is 50MB."}), 400
 
 
 
@@ -196,7 +216,8 @@ def transcribe_uploaded_file():
 
 if __name__ == "__main__":
   debug_mode = Config.FLASK_ENV == "development"
-  app.run(debug=debug_mode, port=5001, host="0.0.0.0")
+  port = int(os.environ.get("PORT", 5001))
+  app.run(debug=debug_mode, port=port, host="0.0.0.0")
 
 
 
