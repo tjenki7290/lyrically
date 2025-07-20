@@ -19,10 +19,11 @@ class Config:
     BASE_URL = os.getenv("BASE_URL", "http://127.0.0.1:5001")
     ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
-client = OpenAI(api_key=Config.OPENAI_API_KEY)
-
-# Validate API key on startup
-if not Config.OPENAI_API_KEY:
+# Initialize OpenAI client only if API key is available
+if Config.OPENAI_API_KEY:
+    client = OpenAI(api_key=Config.OPENAI_API_KEY)
+else:
+    client = None
     print("⚠️  WARNING: OPENAI_API_KEY not set!")
 
 
@@ -109,6 +110,9 @@ def transcribe_from_url():
 
 
 
+      if not client:
+          return jsonify({"error": "OpenAI API key not configured"}), 500
+          
       with open(mp3_path, "rb") as audio_file:
           transcript = client.audio.transcriptions.create(
               model="whisper-1",
@@ -182,6 +186,9 @@ def transcribe_uploaded_file():
 
 
 
+      if not client:
+          return jsonify({"error": "OpenAI API key not configured"}), 500
+          
       with open(mp3_path, "rb") as audio_file:
           transcript = client.audio.transcriptions.create(
               model="whisper-1",
