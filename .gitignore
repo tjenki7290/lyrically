@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+venv/
+env/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Build outputs
+build/
+dist/
+*.pyc
+__pycache__/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+temp/
+*.tmp
+*.temp
+
+# Audio files (if any are accidentally committed)
+*.mp3
+*.wav
+*.m4a
+
+# Video files
+*.mov
+*.mp4
+*.avi
+*.mkv 

@@ -1,0 +1,109 @@
+.container {
+  
+  margin: 60px auto;
+  padding: 20px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input {
+  display: block;
+  margin: 0 auto 15px;
+  max-width: 800px;
+  width: 65%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.playButton{
+  max-width: 400px;
+  width: 65%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #6c5ce7;;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.button {
+  max-width: 800px;
+  width: 65%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #6c5ce7;;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.button:hover{
+  background-color: #5a4dbf;
+}
+.playButton:hover{
+  background-color: #5a4dbf;
+}
+.button:disabled {
+  background-color: #888;
+  cursor: wait;
+}
+
+.error {
+  color: red;
+  margin-top: 15px;
+}
+
+.lyrics-box {
+  margin: 20px auto;
+  width: 75%;
+  max-width: 1200px;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  color: #222;
+  font-size: 1.1rem;
+  line-height: 1.8; /* Adds space between lines */
+  white-space: pre-wrap; /* Ensures line breaks are preserved */
+  box-sizing: border-box;
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for pop */
+  font-weight: 500;
+}
+
+.highlighted {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+
+/* ✅ Responsive Styling */
+@media (max-width: 600px) {
+  .container {
+    margin: 30px 10px;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .input,
+  .button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+}
