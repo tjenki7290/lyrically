@@ -100,9 +100,7 @@ function App() {
      {songTitle && <h2 className="subtitle">🎶 {songTitle}</h2>}
      {audioUrl && (
        <div>
-         <button className="playButton" onClick={toggleAudio}>
-           {isPlaying ? "Pause Song" : "Play Song"}
-         </button>
+
          <audio
            ref={audioRef}
            src={audioUrl}
